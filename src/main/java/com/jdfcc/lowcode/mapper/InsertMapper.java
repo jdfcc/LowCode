@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper
 public interface InsertMapper {
 
-    void insertOne();
-
-    void insertBatch();
+//    void insertOne();
+//
+//    void insertBatch();
 }

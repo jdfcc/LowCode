@@ -1,6 +1,6 @@
 package com.jdfcc.lowcode.util;
 
-import com.jdfcc.lowcode.entity.MyTable;
+import com.jdfcc.lowcode.entity.BaseTable;
 
 /**
  * @author Jdfcc
@@ -9,13 +9,13 @@ import com.jdfcc.lowcode.entity.MyTable;
  * @DateTime 2023/11/27 14:30
  */
 public class TableGenerater {
-    public String generateTableCreationCode(MyTable table) {
-        // TODO Auto-generated method stub
-        System.out.println("Generating");
-        // TODO Auto-generated method stub
-        if (table.getAddAuditField()) {
-            System.out.println("Generating table creation code");
-        }
+    public String generateTableCreationCode(BaseTable table) {
+//        // TODO Auto-generated method stub
+//        System.out.println("Generating");
+//        // TODO Auto-generated method stub
+//        if (table.getAddAuditField()) {
+//            System.out.println("Generating table creation code");
+//        }
 
         return "sql";
     }

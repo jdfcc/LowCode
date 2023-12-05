@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdfcc.lowcode.mapper.TableMapper">
+
+
+    <!-- Insert statement for TableData -->
+    <insert id="insertTableData" parameterType="com.jdfcc.lowcode.entity.TableData">
+        INSERT INTO ${tableName} (columnName, primaryKey, isNullable, type, defaultValue, length, comment)
+        VALUES
+        <foreach collection="data" item="column" separator=",">
+            (#{column.columnName}, #{column.primaryKey}, #{column.isNullable}, #{column.type},
+            #{column.defaultValue}, #{column.length}, #{column.comment})
+        </foreach>
+    </insert>
+
+
+
+<!--TODO ；foreach插入创建表-->
+    <insert id="createTable" parameterType="com.jdfcc.lowcode.entity.TableData">
+        CREATE TABLE IF NOT EXISTS ${table.tableName} (
+        <foreach collection="table.data" item="column" separator=",">
+            #{column.}
+            <if test="column.length != null">
+                ( ${column.length} )
+            </if>
+
+        </foreach>
+        );
+    </insert>
+
+
+</mapper>

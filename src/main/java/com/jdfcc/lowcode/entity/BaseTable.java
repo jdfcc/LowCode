@@ -2,8 +2,6 @@ package com.jdfcc.lowcode.entity;
 
 import lombok.Data;
 
-import java.io.Serializable;
-
 /**
  * @author Jdfcc
  * @HomePage <a href="https://github.com/Jdfcc">Jdfcc</a>
@@ -14,5 +12,5 @@ import java.io.Serializable;
 public class BaseTable {
     private String tableName;
     private String charSet = "utf8";
-    private static final String Engine = "InnoDB";
+    private String Engine = "InnoDB";
 }

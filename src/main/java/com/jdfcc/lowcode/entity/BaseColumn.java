@@ -11,9 +11,9 @@ import java.io.Serializable;
  * @DateTime 2023/11/27 11:56
  */
 @Data
-public class BaseColumn  {
+public class BaseColumn implements Serializable{
     /**
-     * 列名
+     * 字段名
      */
     private String columnName;
     /**
@@ -40,8 +40,5 @@ public class BaseColumn  {
      * 备注
      */
     private String comment;
-    /**
-     * 值
-     */
-    private String value;
+
 }
