@@ -17,9 +17,19 @@ import java.util.List;
 @Data
 public class TableData extends BaseTable implements Serializable {
 
-    private List<BaseColumn> data = new ArrayList<>();
+    private List<BaseColumn> columns = new ArrayList<BaseColumn>(){{
+        add(new BaseColumn(){{
+            setColumnName("unid");
+            setPrimaryKey(true);
+            setType("bigint");
+            setLength(24);
+            setComment("系统主键");
+            setIsNullable(false);
+        }});
+    }};
 
     public void addColumn(BaseColumn newData) {
-        this.data.add(newData);
+        this.columns.add(newData);
     }
+
 }

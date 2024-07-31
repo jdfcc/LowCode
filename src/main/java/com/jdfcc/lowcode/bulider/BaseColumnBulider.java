@@ -1,6 +1,9 @@
 package com.jdfcc.lowcode.bulider;
 
 import com.jdfcc.lowcode.entity.BaseColumn;
+import com.jdfcc.lowcode.enums.SqlType;
+
+import java.util.List;
 
 
 /**
@@ -12,11 +15,11 @@ import com.jdfcc.lowcode.entity.BaseColumn;
 
 public class BaseColumnBulider {
 
-    private static final BaseColumn instance = new BaseColumn();
+    private static final BaseColumn INSTANCE = new BaseColumn();
 
     public BaseColumnBulider withName(String columnName) {
         if (columnName != null) {
-            instance.setColumnName(columnName);
+            INSTANCE.setColumnName(columnName);
         }
         return this;
     }
@@ -24,49 +27,62 @@ public class BaseColumnBulider {
     public BaseColumnBulider withLength(Integer length) {
         if (length == null || length <= 0) {
             length = 1;
-            instance.setLength(length);
+            INSTANCE.setLength(length);
         }
-        instance.setLength(length);
+        INSTANCE.setLength(length);
         return this;
     }
 
-    public BaseColumnBulider withType(String type) {
-        instance.setType(type);
+    public BaseColumnBulider withType(SqlType type) {
+        INSTANCE.setType(type.getType());
         return this;
     }
 
     public BaseColumnBulider withComment(String comment) {
-        if (comment == null || comment.equals("")) {
-            instance.setComment("no description");
+        if (comment == null || comment.isEmpty()) {
+            INSTANCE.setComment("no description");
         }
-        instance.setComment(comment);
+        INSTANCE.setComment(comment);
         return this;
     }
 
     public BaseColumnBulider withDefaultValue(String defaultValue) {
-        if (defaultValue == null || defaultValue.equals("")) {
-            instance.setDefaultValue("NULL");
+        if (defaultValue == null || defaultValue.isEmpty()) {
+            INSTANCE.setDefaultValue("NULL");
         }
-        instance.setDefaultValue(defaultValue);
+        INSTANCE.setDefaultValue(defaultValue);
         return this;
     }
 
     public BaseColumnBulider withIsNull(boolean isNull) {
-        instance.setIsNullable(isNull);
+        INSTANCE.setIsNullable(isNull);
         return this;
     }
 
     public BaseColumnBulider withPrimaryKey(boolean primaryKey) {
-        instance.setPrimaryKey(primaryKey);
+        INSTANCE.setPrimaryKey(primaryKey);
         return this;
     }
 
-    public BaseColumn build() throws IllegalArgumentException{
-        if (instance.getColumnName() == null) {
+    public BaseColumn build() throws IllegalArgumentException {
+        this.validFields();
+        return INSTANCE;
+    }
+
+    private void validFields() {
+        if (INSTANCE.getColumnName() == null) {
             throw new IllegalArgumentException("Column name cannot be null");
-        } else if (instance.getType() == null) {
+        }
+        if (INSTANCE.getType() == null) {
             throw new IllegalArgumentException("Column type cannot be null");
         }
-        return instance;
+        if (INSTANCE.getLength() == null) {
+            List<SqlType> allTypes = SqlType.getAllTypes();
+            for (SqlType type : allTypes) {
+                if (type.getType().equals(INSTANCE.getType())) {
+                    INSTANCE.setLength(type.getLength());
+                }
+            }
+        }
     }
 }

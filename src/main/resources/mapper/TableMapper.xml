@@ -15,18 +15,38 @@
 
 
 
-<!--TODO ；foreach插入创建表-->
     <insert id="createTable" parameterType="com.jdfcc.lowcode.entity.TableData">
-        CREATE TABLE IF NOT EXISTS ${table.tableName} (
-        <foreach collection="table.data" item="column" separator=",">
-            #{column.}
+        CREATE TABLE IF NOT EXISTS ${table.tableName}
+        <foreach collection="table.columns" item="column" open="(" close=")" separator=",">
+            ${column.columnName}
+            ${column.type}
             <if test="column.length != null">
-                ( ${column.length} )
+                (#{column.length})
             </if>
-
+            <if test="column.primaryKey">
+                PRIMARY KEY
+            </if>
+            <if test="!column.isNullable">
+                NOT NULL
+            </if>
+            <if test="column.defaultValue!=null">
+                DEFAULT #{column.defaultValue}
+            </if>
+            <if test="column.comment!=null">
+                COMMENT #{column.comment}
+            </if>
         </foreach>
-        );
+        <if test="table.engine!=null">
+            ENGINE= #{table.engine}
+        </if>
+        <if test="table.charSet!=null">
+            CHARSET= #{table.charSet}
+        </if>
     </insert>
+
+
+
+
 
 
 </mapper>

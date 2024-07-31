@@ -11,6 +11,6 @@ import lombok.Data;
 @Data
 public class BaseTable {
     private String tableName;
-    private String charSet = "utf8";
-    private String Engine = "InnoDB";
+    private String charSet = "utf8mb4";
+    private String engine = "InnoDB";
 }
